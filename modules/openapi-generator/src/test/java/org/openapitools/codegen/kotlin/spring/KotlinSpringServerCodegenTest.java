@@ -29,25 +29,26 @@ import static org.openapitools.codegen.TestUtils.assertFileNotContains;
 
 public class KotlinSpringServerCodegenTest {
 
-    @Test(description = "test embedded enum array")
-    public void embeddedEnumArrayTest() throws Exception {
-        String baseModelPackage = "zz";
-        File output = Files.createTempDirectory("test").toFile().getCanonicalFile(); //may be move to /build
-        OpenAPI openAPI = TestUtils.parseFlattenSpec("src/test/resources/3_0/issue______kotlinArrayEnumEmbedded.yaml");
-        KotlinSpringServerCodegen codegen = new KotlinSpringServerCodegen();
-        codegen.setOutputDir(output.getAbsolutePath());
-        codegen.additionalProperties().put(CodegenConstants.MODEL_PACKAGE, baseModelPackage + ".yyyy.model.xxxx");
-        ClientOptInput input = new ClientOptInput();
-        input.openAPI(openAPI);
-        input.config(codegen);
-        DefaultGenerator generator = new DefaultGenerator();
-        generator.opts(input).generate();
-        File resultSourcePath = new File(output, "src/main/kotlin");
-        File outputModel = Files.createTempDirectory("test").toFile().getCanonicalFile();
-        FileUtils.copyDirectory(new File(resultSourcePath, baseModelPackage), new File(outputModel, baseModelPackage));
-        //no exception
-        KotlinTestUtils.buildModule(Collections.singletonList(outputModel.getAbsolutePath()), Thread.currentThread().getContextClassLoader());
-    }
+//     Test omitted, see https://github.com/OpenAPITools/openapi-generator/pull/9526
+//     @Test(description = "test embedded enum array")
+//     public void embeddedEnumArrayTest() throws Exception {
+//         String baseModelPackage = "zz";
+//         File output = Files.createTempDirectory("test").toFile().getCanonicalFile(); //may be move to /build
+//         OpenAPI openAPI = TestUtils.parseFlattenSpec("src/test/resources/3_0/issue______kotlinArrayEnumEmbedded.yaml");
+//         KotlinSpringServerCodegen codegen = new KotlinSpringServerCodegen();
+//         codegen.setOutputDir(output.getAbsolutePath());
+//         codegen.additionalProperties().put(CodegenConstants.MODEL_PACKAGE, baseModelPackage + ".yyyy.model.xxxx");
+//         ClientOptInput input = new ClientOptInput();
+//         input.openAPI(openAPI);
+//         input.config(codegen);
+//         DefaultGenerator generator = new DefaultGenerator();
+//         generator.opts(input).generate();
+//         File resultSourcePath = new File(output, "src/main/kotlin");
+//         File outputModel = Files.createTempDirectory("test").toFile().getCanonicalFile();
+//         FileUtils.copyDirectory(new File(resultSourcePath, baseModelPackage), new File(outputModel, baseModelPackage));
+//         //no exception
+//         KotlinTestUtils.buildModule(Collections.singletonList(outputModel.getAbsolutePath()), Thread.currentThread().getContextClassLoader());
+//     }
 
     @Test
     public void testInitialConfigValues() throws Exception {
